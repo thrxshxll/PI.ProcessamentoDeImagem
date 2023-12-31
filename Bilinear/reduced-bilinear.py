@@ -28,6 +28,9 @@ for l in range(0, height-1, 2):
         reduced[int(l/2), int(c/2)] = (summ / 4)
 
 
-# print('reduced:', np.shape(reduced))
+file_name = file_name.split('.')
+extenstion = file_name.pop()
+filename = file_name.pop()
+
 arr2img = Image.fromarray(reduced)
-arr2img.save('reduced:'+str(reduced.shape[0])+'x'+str(reduced.shape[1])+':'+file_name)
+arr2img.save(filename+':reduced.'+extenstion)

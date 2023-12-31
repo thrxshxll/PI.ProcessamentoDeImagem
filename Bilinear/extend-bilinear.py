@@ -1,9 +1,17 @@
-
+import sys
 import numpy as np
 from PIL import Image
 
-# name da imagem passado para o programa
-file_name = sys.argv[1]
+def usage(programName: str):
+    print(f'Usage:\n\tpython {programName} [imagefile]')
+    exit(1)
+
+try:
+    # nome da imagem passado para o programa
+    file_name = sys.argv[1]
+except IndexError:
+    usage(sys.argv[0])
+
 
 img_colour = Image.open(file_name)
 img_gray = img_colour.convert('L')   # L - use the ITU-R 601-2 luma transform to convert color to grayscale
@@ -57,5 +65,9 @@ for l in range(0, height*2-1, 2):
             extanded[l+2,c+1] = (x/2)     # e
 
 
+file_name = file_name.split('.')
+extenstion = file_name.pop()
+filename = file_name.pop()
+
 arr2img = Image.fromarray(extanded)
-arr2img.save('extanded:'+str(extanded.shape[0])+'x'+str(extanded.shape[1])+':'+file_name)
+arr2img.save(filename+':extended.'+extenstion)
